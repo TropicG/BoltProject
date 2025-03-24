@@ -2,6 +2,9 @@ package bg.sofia.fmi.uni;
 
 import bg.sofia.fmi.uni.driver.AgeGroup;
 import bg.sofia.fmi.uni.driver.Driver;
+import bg.sofia.fmi.uni.exceptions.InvalidTimeException;
+import bg.sofia.fmi.uni.exceptions.VehicleNotTakenException;
+import bg.sofia.fmi.uni.exceptions.VehicleTakenException;
 import bg.sofia.fmi.uni.vehicle.Bicycle;
 import bg.sofia.fmi.uni.vehicle.Car;
 import bg.sofia.fmi.uni.vehicle.FuelType;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidTimeException, VehicleNotTakenException, VehicleTakenException {
 
         //basic testing
         RentalService rentalService = new RentalService();
