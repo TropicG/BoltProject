@@ -13,4 +13,8 @@ public enum FuelType {
     FuelType(int fuelType) {
         this.fuelType = fuelType;
     }
+
+    public int getFuelType() {
+        return fuelType;
+    }
 }

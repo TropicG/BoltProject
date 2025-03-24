@@ -4,7 +4,7 @@ import bg.sofia.fmi.uni.driver.Driver;
 
 import java.time.LocalDateTime;
 
-public abstract sealed class Vehicle permits Bicycle, Car {
+public abstract sealed class Vehicle permits Bicycle, Car, Caravan {
 
     private String id;
     private String model;
@@ -29,7 +29,7 @@ public abstract sealed class Vehicle permits Bicycle, Car {
             return;
         }
 
-        driver = driver;
+        this.driver = driver;
         dataOfRent = startRentTime;
         isTaken = true;
     }

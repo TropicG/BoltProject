@@ -3,21 +3,22 @@ package bg.sofia.fmi.uni.vehicle;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public final class Car extends Vehicle {
+public final class Caravan extends Vehicle{
 
     private final FuelType fuelType;
     private final int numberOfSeats;
+    private final int numberOfBeds;
     private final double pricePerWeek;
     private final double pricePerDay;
     private final double pricePerHour;
 
-    public Car(String id, String model, FuelType fuelType,
-                int numberOfSeats,
-               double pricePerWeek, double pricePerDay, double pricePerHour) {
-
+    public Caravan(String id, String model, FuelType fuelType,
+                   int numberOfSeats, int numberOfBeds,
+                   double pricePerWeek, double pricePerDay, double pricePerHour) {
         super(id, model);
         this.fuelType = fuelType;
         this.numberOfSeats = numberOfSeats;
+        this.numberOfBeds = numberOfBeds;
         this.pricePerWeek = pricePerWeek;
         this.pricePerDay = pricePerDay;
         this.pricePerHour = pricePerHour;
@@ -31,7 +32,7 @@ public final class Car extends Vehicle {
         }
 
         if(!isTaken) {
-            System.out.println("This vehicle is not taken");
+            System.out.println("This vehicle is istaken");
             return 0.0d;
         }
 
@@ -58,10 +59,11 @@ public final class Car extends Vehicle {
         long hours = duration.toHours() % 24;
 
         //in case if the owner only used for one hour
-        if(hours == 0 && days == 0) {
-            return pricePerHour;
+        if(days == 0 && weeks == 0 && hours > 0) {
+            System.out.println("Bad time duration");
+            return 0.0d;
         }
 
-        return (weeks * pricePerWeek) + ((days * pricePerDay) + (fuelType.getFuelType() * days)) + (hours * pricePerHour) + super.getDriver().ageGroup().getAgeGroup() + (numberOfSeats * 5);
+        return (weeks * pricePerWeek) + (days * pricePerDay * fuelType.getFuelType()) + (hours * pricePerHour) + super.getDriver().ageGroup().ordinal() + (numberOfBeds * 10) + (numberOfSeats * 5);
     }
 }
