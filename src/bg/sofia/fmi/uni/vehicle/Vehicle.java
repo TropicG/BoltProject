@@ -4,17 +4,18 @@ import bg.sofia.fmi.uni.driver.Driver;
 
 import java.time.LocalDateTime;
 
-public abstract class Vehicle {
+public abstract sealed class Vehicle permits Bicycle {
 
     private String id;
     private String model;
-    private boolean isTaken;
+    protected boolean isTaken;
     private Driver driver;
-    private LocalDateTime dataOfRent;
+    protected LocalDateTime dataOfRent;
 
     public Vehicle(String id, String model) {
         this.id = id;
         this.model = model;
+        this.isTaken = false;
     }
 
     public void rent(Driver driver, LocalDateTime startRentTime) {
@@ -29,7 +30,7 @@ public abstract class Vehicle {
         isTaken = true;
     }
 
-    public abstract void returnBack(LocalDateTime rentalEnd);
+    public abstract double returnBack(LocalDateTime rentalEnd);
 
     public abstract double calculateRentalPrice(LocalDateTime startOfRent, LocalDateTime endOfRent);
 }
