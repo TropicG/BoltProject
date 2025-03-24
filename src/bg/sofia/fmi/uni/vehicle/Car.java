@@ -24,32 +24,7 @@ public final class Car extends Vehicle {
     }
 
     @Override
-    public double returnBack(LocalDateTime rentalEnd) {
-
-        if(rentalEnd == null) {
-            return 0.0d;
-        }
-
-        if(!isTaken) {
-            System.out.println("This vehicle is not taken");
-            return 0.0d;
-        }
-
-        if(dataOfRent.isAfter(rentalEnd)) {
-            System.out.println("Not proper time");
-            return 0.0d;
-        }
-
-        return calculateRentalPrice(dataOfRent, rentalEnd);
-    }
-
-    @Override
     public double calculateRentalPrice(LocalDateTime startOfRent, LocalDateTime endOfRent){
-
-        if(startOfRent.isAfter(endOfRent)) {
-            System.out.println("Unproper time");
-            return 0.0d;
-        }
 
         Duration duration = Duration.between(startOfRent,endOfRent);
 
@@ -62,6 +37,8 @@ public final class Car extends Vehicle {
             return pricePerHour;
         }
 
-        return (weeks * pricePerWeek) + ((days * pricePerDay) + (fuelType.getFuelType() * days)) + (hours * pricePerHour) + super.getDriver().ageGroup().getAgeGroup() + (numberOfSeats * 5);
+        //formula to calculate how much will the rent cost for the Car
+        return (weeks * pricePerWeek) + ((days * pricePerDay) + (fuelType.getFuelType() * days)) + (hours * pricePerHour)
+                + super.getDriver().ageGroup().getAgeGroup() + (numberOfSeats * 5);
     }
 }

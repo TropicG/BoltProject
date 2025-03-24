@@ -15,40 +15,7 @@ public final class Bicycle extends Vehicle {
     }
 
     @Override
-    public double returnBack(LocalDateTime rentalEnd) {
-
-        if(rentalEnd == null) {
-            return 0.0d;
-        }
-
-        if(!isTaken) {
-            System.out.println("This vehicle is not taken");
-            return 0.0d;
-        }
-
-        if(dataOfRent.isAfter(rentalEnd)) {
-            System.out.println("Not proper time");
-            return 0.0d;
-        }
-
-        Duration duration = Duration.between(dataOfRent, rentalEnd);
-
-        if(duration.toDays() >= 7) {
-            System.out.println("You cannot take the vehicle for more than 1 week");
-            return 0.0d;
-        }
-
-
-        return calculateRentalPrice(dataOfRent, rentalEnd);
-    }
-
-    @Override
     public double calculateRentalPrice(LocalDateTime startOfRent, LocalDateTime endOfRent) {
-
-        if(startOfRent.isAfter(endOfRent)) {
-            System.out.println("Unproper time");
-            return 0.0d;
-        }
 
         Duration duration = Duration.between(startOfRent,endOfRent);
 
@@ -59,9 +26,6 @@ public final class Bicycle extends Vehicle {
         if(hours == 0 && days == 0) {
             return pricePerHour;
         }
-
-        System.out.println(days);
-        System.out.println(hours);
 
         return (days * pricePerDay) + (hours * pricePerHour);
     }

@@ -25,32 +25,7 @@ public final class Caravan extends Vehicle{
     }
 
     @Override
-    public double returnBack(LocalDateTime rentalEnd) {
-
-        if(rentalEnd == null) {
-            return 0.0d;
-        }
-
-        if(!isTaken) {
-            System.out.println("This vehicle is istaken");
-            return 0.0d;
-        }
-
-        if(dataOfRent.isAfter(rentalEnd)) {
-            System.out.println("Not proper time");
-            return 0.0d;
-        }
-
-        return calculateRentalPrice(dataOfRent, rentalEnd);
-    }
-
-    @Override
     public double calculateRentalPrice(LocalDateTime startOfRent, LocalDateTime endOfRent){
-
-        if(startOfRent.isAfter(endOfRent)) {
-            System.out.println("Unproper time");
-            return 0.0d;
-        }
 
         Duration duration = Duration.between(startOfRent,endOfRent);
 
@@ -64,6 +39,8 @@ public final class Caravan extends Vehicle{
             return 0.0d;
         }
 
-        return (weeks * pricePerWeek) + (days * pricePerDay * fuelType.getFuelType()) + (hours * pricePerHour) + super.getDriver().ageGroup().ordinal() + (numberOfBeds * 10) + (numberOfSeats * 5);
+        //formula for calculating how much it will cost for a Caravan
+        return (weeks * pricePerWeek) + (days * pricePerDay * fuelType.getFuelType()) + (hours * pricePerHour)
+                + super.getDriver().ageGroup().ordinal() + (numberOfBeds * 10) + (numberOfSeats * 5);
     }
 }

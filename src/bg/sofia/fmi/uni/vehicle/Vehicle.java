@@ -1,7 +1,9 @@
 package bg.sofia.fmi.uni.vehicle;
 
 import bg.sofia.fmi.uni.driver.Driver;
+import bg.sofia.fmi.uni.exceptions.VehicleTakenException;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 
 public abstract sealed class Vehicle permits Bicycle, Car, Caravan {
@@ -18,15 +20,14 @@ public abstract sealed class Vehicle permits Bicycle, Car, Caravan {
         this.isTaken = false;
     }
 
-    public void rent(Driver driver, LocalDateTime startRentTime) {
+    public void rent(Driver driver, LocalDateTime startRentTime)  {
 
         if(driver == null || startRentTime == null) {
-            System.out.println("NULL");
+          //  throw new InvalidParameterException("Not proper arguments");
         }
 
         if(isTaken) {
-            System.out.println("The vehicle is already taken");
-            return;
+         //   throw new VehicleTakenException("The vehicle is already taken");
         }
 
         this.driver = driver;
@@ -38,7 +39,23 @@ public abstract sealed class Vehicle permits Bicycle, Car, Caravan {
         return driver;
     }
 
-    public abstract double returnBack(LocalDateTime rentalEnd);
+    public double returnBack(LocalDateTime rentalEnd) {
+        if(rentalEnd == null) {
+            return 0.0d;
+        }
+
+        if(!isTaken) {
+            System.out.println("This vehicle is istaken");
+            return 0.0d;
+        }
+
+        if(dataOfRent.isAfter(rentalEnd)) {
+            System.out.println("Not proper time");
+            return 0.0d;
+        }
+
+        return calculateRentalPrice(dataOfRent, rentalEnd);
+    }
 
     public abstract double calculateRentalPrice(LocalDateTime startOfRent, LocalDateTime endOfRent);
 }

@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //basic testing
         RentalService rentalService = new RentalService();
         LocalDateTime rentStart = LocalDateTime.of(2024, 10, 10, 0, 0, 0);
         Driver experiencedDriver = new Driver(AgeGroup.EXPERIENCED);
