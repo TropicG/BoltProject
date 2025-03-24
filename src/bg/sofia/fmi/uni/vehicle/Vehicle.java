@@ -20,6 +20,10 @@ public abstract sealed class Vehicle permits Bicycle {
 
     public void rent(Driver driver, LocalDateTime startRentTime) {
 
+        if(driver == null || startRentTime == null) {
+            System.out.println("NULL");
+        }
+
         if(isTaken) {
             System.out.println("The vehicle is already taken");
             return;

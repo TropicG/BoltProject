@@ -17,12 +17,16 @@ public final class Bicycle extends Vehicle {
     @Override
     public double returnBack(LocalDateTime rentalEnd) {
 
+        if(rentalEnd == null) {
+            return 0.0d;
+        }
+
         if(!isTaken) {
             System.out.println("This vehicle is not taken");
             return 0.0d;
         }
 
-        if(dataOfRent.isBefore(rentalEnd)) {
+        if(dataOfRent.isAfter(rentalEnd)) {
             System.out.println("Not proper time");
             return 0.0d;
         }
@@ -35,7 +39,6 @@ public final class Bicycle extends Vehicle {
         }
 
 
-        //since the bycicle is free to use
         return calculateRentalPrice(dataOfRent, rentalEnd);
     }
 
@@ -51,6 +54,14 @@ public final class Bicycle extends Vehicle {
 
         long days = duration.toDays();
         long hours = duration.toHours() % 24;
+
+        //in case if the owner only used for one hour
+        if(hours == 0 && days == 0) {
+            return pricePerHour;
+        }
+
+        System.out.println(days);
+        System.out.println(hours);
 
         return (days * pricePerDay) + (hours * pricePerHour);
     }
